@@ -1,0 +1,110 @@
+@font-face {
+  font-family: "ClearSans";
+  src: url("../fonts/ClearSans-Medium.ttf"); }
+
+* {
+  margin: 0px;
+  -webkit-user-select: none;
+  cursor: default; }
+
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'ClearSans'; }
+
+div#sidebar {
+  width: 200px;
+  height: 100%;
+  background-color: #212836;
+  float: left; }
+
+div#crown {
+  background-color: #32F2FF;
+  width: 100%;
+  margin-bottom: 10px;
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  font-size: 20px; }
+
+div#content-window {
+  background-color: #19202E;
+  width: calc(100% - 200px);
+  float: right; }
+
+div.window-panel {
+  width: 100%;
+  height: 100vh;
+  background-color: #19202E; }
+
+div.tab {
+  width: 100%;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  -webkit-transition: background-color 0.1s ease-out;
+  background-color: #212836;
+  cursor: pointer; }
+  div.tab p {
+    font-size: 20px;
+    color: #4D6185;
+    margin-left: 20px; }
+  div.tab.active {
+    background-color: #293345; }
+    div.tab.active:after {
+      content: "";
+      width: 15px;
+      height: 100%;
+      background-color: #32F2FF;
+      float: right;
+      position: absolute;
+      right: 0;
+      top: 0; }
+  div.tab:hover {
+    -webkit-transition: background-color 0.1s ease-in;
+    background-color: #293345; }
+
+div#widget-bar {
+  color: #4D6185;
+  position: absolute;
+  padding: 15px;
+  bottom: 0px;
+  right: 0px;
+  letter-spacing: 1px;
+  font-size: 13px;
+  z-index: 99; }
+
+div#sketch #panel-upper {
+  width: 100%;
+  height: 65px;
+  background-color: #212836; }
+
+div#sketch #panel-lower {
+  width: 100%;
+  height: calc(100% - 65px);
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+div#sketch #pixel-wrapper {
+  display: block; }
+
+div#sketch .pixel {
+  background-color: white;
+  float: left;
+  width: 10px;
+  height: 10px; }
+
+div#sketch .pixel-block {
+  float: left;
+  display: block; }
+
+div#import {
+  color: blue; }
+
+div#export {
+  color: green; }
