@@ -1,5 +1,5 @@
 {
-  "name": "Wren Editor",
+  "name": "Wren-Editor",
   "version": "0.0.1",
   "description": "GUI interface for a lightweight TI-Basic bichrome sprite renderer.",
   "main": "app.js",
