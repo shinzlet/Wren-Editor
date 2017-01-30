@@ -11,6 +11,12 @@ If everything has gone correctly, all that's left is to test (or build) the app.
 ```
 npm run start
 ```
+Another useful script included is a sass watch script, which automates css compilation. To activate it, simply run
+```
+npm run watch-css
+```
+in a new tab.
+
 If you want to build the app, run
 ```
 npm run build-osx
