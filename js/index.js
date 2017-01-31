@@ -3,12 +3,13 @@ const selectionMargin = 100
 
 let clickMonitor = 0
 let pixelSize = 10
-let spriteWidth = 8, spriteHeight = 3
+let spriteWidth = 3, spriteHeight = 5
 let pageID = 0
 let colors = ["#f00", "#00f", "#00A04A", "#ff0", "#000", "#333", "#777", "#fff"]
+let defColors = [4, 7]
 
 $(document).ready(function() {
-  let tabNames = ["sketch", "import", "export"];
+  let tabNames = ["sketch", "import", "export", "config"];
 
   for(let i = 0; i < tabNames.length; i++) {
     $("#tabs").append(`<div class="tab" id="${i}"><p>${tabNames[i]}</p></div>`)
@@ -28,14 +29,26 @@ $(document).ready(function() {
     $("#content-window").stop().animate({marginTop: `${-100 * pageID}vh`})
   })
 
+  // Recreation is key
+  $("body").on('click', () => {
+    clickMonitor ++;
+  })
+
+  window.setInterval(() => {
+    if(clickMonitor > 8) alert("dude chill")
+    clickMonitor = 0;
+  }, 1000)
+})
+
+function runPixelSetup() {
   // Create pixel blocks in sketch
   for(let h = 0; h < spriteWidth * spriteHeight; h++) {
-    $("#pixel-wrapper").append(`<div class="pixel-block" data-col0="${Math.floor(Math.random() * 8)}" data-col1="${Math.floor(Math.random() * 8)}"></div>`)
+    $("#pixel-wrapper").append(`<div class="pixel-block" data-col0="${defColors[0]}" data-col1="${defColors[1]}"></div>`)
     for(let i = 0; i < 25; i++) {
       $(".pixel-block").last().append('<div class="pixel" data-state="0"></div>')
     }
   }
-
+  
   maintainPixelBlocks()
   pushColorScheme()
 
@@ -47,7 +60,9 @@ $(document).ready(function() {
         break;
 
       case 3:
-        $(event.target).parent().data("col0", 4)
+        var c0 = $(".color-selector").first().data("col"),
+            c1 = $(".color-selector").last().data("col")
+        $(event.target).parent().data({"col0": c0, "col1": c1})
         pushColorScheme()
         break;
 
@@ -56,17 +71,24 @@ $(document).ready(function() {
     }
   })
 
-  $(document).bind('mousewheel', (e) => {
-      if($(".pixel").parent().find(":hover").length == 1) {
-        let delta = (e.originalEvent.wheelDelta) > 0 ? 1 : -1
-        if(pixelSize + delta < 3 ||
-            (delta > 0 && (5 * spriteWidth * pixelSize > $("#panel-lower").width() - 50 ||
-            5 * spriteHeight * pixelSize > $("#panel-lower").height() - 100))) return
+  $(".color-selector").css({backgroundColor: colors[defColors[0]]}).data("col", defColors[0])
+  $(".color-selector").css({backgroundColor: colors[defColors[1]]}).data("col", defColors[1])
 
-        $(".pixel").css({width: `${pixelSize+=2*delta}px`, height: `${pixelSize}px`})
-        maintainPixelBlocks()
-      }
-  });
+  $(".color-selector").on('click', () => {
+    var color = ($(event.target).data("col") + 1) % colors.length
+    $(event.target).data("col", color).css({backgroundColor: colors[color]})
+  })
+
+  $(".pixel").bind('mousewheel', (e) => {
+      let delta = (e.originalEvent.wheelDelta) > 0 ? 1 : -1
+      if(pixelSize + delta < 3 ||
+          (delta > 0 && (5 * spriteWidth * pixelSize > $("#panel-lower").width() - 50 ||
+          5 * spriteHeight * pixelSize > $("#panel-lower").height() - 100))) return
+
+      $(".pixel").css({width: `${pixelSize+=delta}px`, height: `${pixelSize}px`})
+      console.log(pixelSize)
+      maintainPixelBlocks()
+  })
 
   window.onresize = () => {
     let width = window.innerWidth,
@@ -74,21 +96,11 @@ $(document).ready(function() {
 
     if (5 * spriteWidth * pixelSize + 20 > $("#panel-lower").width() - 50 ||
         5 * spriteHeight * pixelSize + 20 > $("#panel-lower").height() - 100) {
-      $(".pixel").stop().animate({width: `${pixelSize -= 5}px`, height: `${pixelSize}px`}, 'fast')
+      $(".pixel").stop().animate({width: `${pixelSize -= 5}px`, height: `${pixelSize}px`}, 'fast') // This should be css()
       maintainPixelBlocks()
     }
   }
-
-  // Recreation is key
-  $("body").on('click', () => {
-    clickMonitor ++;
-  })
-
-  window.setInterval(() => {
-    if(clickMonitor > 6) alert("dude chill")
-    clickMonitor = 0;
-  }, 1000)
-})
+}
 
 function pushColorScheme(el) {
   if(el) {

@@ -2,12 +2,12 @@
   font-family: "ClearSans"
   src: url("../fonts/ClearSans-Medium.ttf")
 
-$sidebar: #212836;
-$content-window: #19202E;
-$highlight-color: #32F2FF;
+$sidebar: #282828;
+$content-window: #222222;
+$highlight-color: #FFCB53;
 $crown-text-color: #000;
-$sidebar-text-color: #4D6185
-$sidebar-select-color: #293345;
+$sidebar-text-color: #fff
+$sidebar-select-color: #2f2f2f;
 $tab-height: 65px
 
 *
@@ -21,28 +21,38 @@ body, html
   overflow: hidden
   font-family: 'ClearSans'
 
+div#sidebar-wrapper
+  width: 210px
+  height: 100%
+  background-color: $content-window
+  float: left
 
 div#sidebar
   width: 200px
   height: 100%
   background-color: $sidebar
-  float: left
+  #space-filler
 
 div#crown
   background-color: $highlight-color
   width: 100%
-  margin-bottom: 10px
   height: $tab-height
   display: flex
   justify-content: center
   align-items: center
   color: $crown-text-color
   font-size: 20px
+  margin-bottom: 10px
+  &:after
+    content: ""
+    background-color: $content-window
+    height: 10px
+
 
 
 div#content-window
   background-color: $content-window
-  width: calc(100% - 200px)
+  width: calc(100% - 210px)
   float: right
 
 div.window-panel
@@ -59,6 +69,12 @@ div.tab
   -webkit-transition: background-color 0.1s ease-out
   background-color: $sidebar
   cursor: pointer
+
+  &:last-of-type
+    position: absolute
+    left: 0
+    bottom: 0
+    width: 200px
 
   p
     font-size: 20px
@@ -81,44 +97,58 @@ div.tab
     -webkit-transition: background-color 0.1s ease-in
     background-color: $sidebar-select-color
 
-div#widget-bar
-  color: $sidebar-text-color
-  position: absolute
-  padding: 15px
-  bottom: 0px
-  right: 0px
-  letter-spacing: 1px
-  font-size: 13px
-  z-index: 99
-
 div#sketch
-  #panel-upper
+  #left-panel
+    float: left
     width: 100%
-    height: $tab-height
+    height: 100%
     background-color: $sidebar
-
-  #panel-lower
-    width: 100%
-    height: calc(100% - 65px)
-    display: flex
-    justify-content: center
-    align-items: center
-
-  #pixel-wrapper
-    display: block
-
-  .pixel
-    background-color: white
+  #right-panel
+    height: 100%
     float: left
-    width: 10px
-    height: 10px
+    width: 0
+    overflow: hidden
 
-  .pixel-block
-    float: left
-    display: block
+    #panel-upper
+      width: 100%
+      height: $tab-height
+      background-color: $sidebar
+      display: flex
+      align-items: center
+
+      .color-selector
+        width: $tab-height - 20
+        height: $tab-height - 20
+        background-color: white
+        float: left
+        display: inline-block
+        margin-left: 10px
+
+    #panel-lower
+      width: 100%
+      height: calc(100% - 65px)
+      display: flex
+      justify-content: center
+      align-items: center
+
+      #pixel-wrapper
+        display: block
+
+      .pixel
+        background-color: white
+        float: left
+        width: 10px
+        height: 10px
+
+      .pixel-block
+        float: left
+        display: block
 
 div#import
   color: blue
 
 div#export
   color: green
+
+div#config
+  color: pink
