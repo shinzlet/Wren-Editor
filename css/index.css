@@ -13,6 +13,9 @@ body, html {
   overflow: hidden;
   font-family: 'ClearSans'; }
 
+input:focus {
+  outline: none; }
+
 div#sidebar-wrapper {
   width: 210px;
   height: 100%;
@@ -86,7 +89,33 @@ div#sketch #left-panel {
   float: left;
   width: 100%;
   height: 100%;
-  background-color: #282828; }
+  background-color: #282828;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  div#sketch #left-panel #new-document-wrapper * {
+    margin-bottom: 20px; }
+  div#sketch #left-panel #new-document-wrapper #input-fields {
+    float: left;
+    width: 50%; }
+    div#sketch #left-panel #new-document-wrapper #input-fields * {
+      margin-right: 10px; }
+    div#sketch #left-panel #new-document-wrapper #input-fields input[type=text] {
+      color: #FFCB53;
+      background-color: transparent;
+      border: none;
+      font-family: "ClearSans";
+      font-size: 32px;
+      float: right;
+      width: 100%;
+      box-sizing: border-box;
+      text-align: right; }
+  div#sketch #left-panel #new-document-wrapper #input-names {
+    float: right;
+    width: 50%;
+    color: #fff; }
+    div#sketch #left-panel #new-document-wrapper #input-names h1 {
+      margin-left: 10px; }
 
 div#sketch #right-panel {
   height: 100%;

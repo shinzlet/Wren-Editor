@@ -48,7 +48,7 @@ function runPixelSetup() {
       $(".pixel-block").last().append('<div class="pixel" data-state="0"></div>')
     }
   }
-  
+
   maintainPixelBlocks()
   pushColorScheme()
 
