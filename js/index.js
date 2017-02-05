@@ -6,7 +6,6 @@ let pixelSize = 10
 let spriteWidth = 3, spriteHeight = 5
 let pageID = 0
 let colors = ["#f00", "#00f", "#00A04A", "#ff0", "#000", "#333", "#777", "#fff"]
-let defColors = [4, 7]
 
 $(document).ready(function() {
   let tabNames = ["sketch", "import", "export", "config"];
@@ -14,6 +13,23 @@ $(document).ready(function() {
   for(let i = 0; i < tabNames.length; i++) {
     $("#tabs").append(`<div class="tab" id="${i}"><p>${tabNames[i]}</p></div>`)
   }
+
+  $(".color-selector").each((index) => {
+    $($(".color-selector").get(index)).css({backgroundColor: colors[$($(".color-selector").get(index)).data("col")]})
+  })
+
+  $("#create-document-button").on('click', () => {
+    if(setupValid()) {
+      $("#left-panel").animate({width: "0px", opacity: "0"})
+      runPixelSetup()
+      $("#right-panel").animate({width: "100%", opacity: "1"})
+    }
+  })
+
+  $(".color-selector").on('click', () => {
+    var color = ($(event.target).data("col") + 1) % colors.length
+    $(event.target).data("col", color).css({backgroundColor: colors[color]})
+  })
 
   $(".tab").first().toggleClass("active", true).children().css({marginLeft: `${selectionMargin}px`})
 
@@ -41,9 +57,18 @@ $(document).ready(function() {
 })
 
 function runPixelSetup() {
+  var c0 = $($(".color-selector").get(0)).data("col"),
+      c1 = $($(".color-selector").get(1)).data("col")
+
+   $($(".color-selector").get(2)).data("col", c0)
+   $($(".color-selector").get(3)).data("col", c1)
+   $(".color-selector").each((index) => {
+     $($(".color-selector").get(index)).css({backgroundColor: colors[$($(".color-selector").get(index)).data("col")]})
+   })
+
   // Create pixel blocks in sketch
   for(let h = 0; h < spriteWidth * spriteHeight; h++) {
-    $("#pixel-wrapper").append(`<div class="pixel-block" data-col0="${defColors[0]}" data-col1="${defColors[1]}"></div>`)
+    $("#pixel-wrapper").append(`<div class="pixel-block" data-col0="${c0}" data-col1="${c1}"></div>`)
     for(let i = 0; i < 25; i++) {
       $(".pixel-block").last().append('<div class="pixel" data-state="0"></div>')
     }
@@ -60,8 +85,8 @@ function runPixelSetup() {
         break;
 
       case 3:
-        var c0 = $(".color-selector").first().data("col"),
-            c1 = $(".color-selector").last().data("col")
+        var c0 = $($(".color-selector").get(2)).data("col"),
+            c1 = $($(".color-selector").get(3)).data("col")
         $(event.target).parent().data({"col0": c0, "col1": c1})
         pushColorScheme()
         break;
@@ -71,14 +96,6 @@ function runPixelSetup() {
     }
   })
 
-  $(".color-selector").css({backgroundColor: colors[defColors[0]]}).data("col", defColors[0])
-  $(".color-selector").css({backgroundColor: colors[defColors[1]]}).data("col", defColors[1])
-
-  $(".color-selector").on('click', () => {
-    var color = ($(event.target).data("col") + 1) % colors.length
-    $(event.target).data("col", color).css({backgroundColor: colors[color]})
-  })
-
   $(".pixel").bind('mousewheel', (e) => {
       let delta = (e.originalEvent.wheelDelta) > 0 ? 1 : -1
       if(pixelSize + delta < 3 ||
@@ -86,7 +103,6 @@ function runPixelSetup() {
           5 * spriteHeight * pixelSize > $("#panel-lower").height() - 100))) return
 
       $(".pixel").css({width: `${pixelSize+=delta}px`, height: `${pixelSize}px`})
-      console.log(pixelSize)
       maintainPixelBlocks()
   })
 
@@ -100,6 +116,15 @@ function runPixelSetup() {
       maintainPixelBlocks()
     }
   }
+}
+
+function setupValid() {
+  var flag = true
+  $("#new-document-wrapper input").each((index, element) => {
+    if(!$(element).val() || isNaN($(element).val()) || $(element).val() > 10) flag = false
+  })
+  console.log(flag)
+  return flag
 }
 
 function pushColorScheme(el) {

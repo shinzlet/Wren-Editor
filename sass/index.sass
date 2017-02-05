@@ -25,6 +25,15 @@ body, html
 input:focus
   outline: none
 
+div.color-selector
+  width: $tab-height - 20
+  height: $tab-height - 20
+  background-color: white
+  float: left
+  display: inline-block
+  margin-left: 10px
+  border-radius: 50%
+
 div#sidebar-wrapper
   width: 210px
   height: 100%
@@ -50,8 +59,6 @@ div#crown
     content: ""
     background-color: $content-window
     height: 10px
-
-
 
 div#content-window
   background-color: $content-window
@@ -102,6 +109,8 @@ div.tab
 
 div#sketch
   #left-panel
+    position: relative
+    overflow: hidden
     float: left
     width: 100%
     height: 100%
@@ -109,13 +118,28 @@ div#sketch
     display: flex
     justify-content: center
     align-items: center
+    #create-document-button
+      position: absolute
+      right: 10px
+      bottom: 10px
+      font-size: 24px
+      color: white
+      transform: skewX(0deg)
+      transition: color .2s, transform .2s
+      &:hover
+        color: $highlight-color
+        cursor: pointer
+        transform: skewX(-10deg)
     #new-document-wrapper
       *
-        margin-bottom: 20px 
+        margin-bottom: 20px
       #input-fields
         float: left
         width: 50%
-
+        .color-selector
+          display: block
+          float: right
+          clear: both
         *
           margin-right: 10px
         input[type=text]
@@ -139,8 +163,9 @@ div#sketch
   #right-panel
     height: 100%
     float: left
-    width: 0
     overflow: hidden
+    opacity: 0
+    width: 0%
 
     #panel-upper
       width: 100%
@@ -149,19 +174,12 @@ div#sketch
       display: flex
       align-items: center
 
-      .color-selector
-        width: $tab-height - 20
-        height: $tab-height - 20
-        background-color: white
-        float: left
-        display: inline-block
-        margin-left: 10px
-
     #panel-lower
       width: 100%
       height: calc(100% - 65px)
       display: flex
       justify-content: center
+      background-color: $sidebar
       align-items: center
 
       #pixel-wrapper

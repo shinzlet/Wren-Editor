@@ -22,3 +22,6 @@ If you want to build the app, run
 npm run build-osx
 ```
 Note that at the moment, I've only thrown together a mac build routine. I'm going to add windows and linux when I get the chance.
+
+## Notes
+Considering the rather small scale of this project, I think that using jQuery might be rather overkill. I'm going to treat this version as a bit of a mockup, and then when I'm finished I'll throw together a cleaner version with pure js and improved css.

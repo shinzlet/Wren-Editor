@@ -16,6 +16,15 @@ body, html {
 input:focus {
   outline: none; }
 
+div.color-selector {
+  width: 45px;
+  height: 45px;
+  background-color: white;
+  float: left;
+  display: inline-block;
+  margin-left: 10px;
+  border-radius: 50%; }
+
 div#sidebar-wrapper {
   width: 210px;
   height: 100%;
@@ -86,6 +95,8 @@ div.tab {
     background-color: #2f2f2f; }
 
 div#sketch #left-panel {
+  position: relative;
+  overflow: hidden;
   float: left;
   width: 100%;
   height: 100%;
@@ -93,11 +104,27 @@ div#sketch #left-panel {
   display: flex;
   justify-content: center;
   align-items: center; }
+  div#sketch #left-panel #create-document-button {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 24px;
+    color: white;
+    transform: skewX(0deg);
+    transition: color .2s, transform .2s; }
+    div#sketch #left-panel #create-document-button:hover {
+      color: #FFCB53;
+      cursor: pointer;
+      transform: skewX(-10deg); }
   div#sketch #left-panel #new-document-wrapper * {
     margin-bottom: 20px; }
   div#sketch #left-panel #new-document-wrapper #input-fields {
     float: left;
     width: 50%; }
+    div#sketch #left-panel #new-document-wrapper #input-fields .color-selector {
+      display: block;
+      float: right;
+      clear: both; }
     div#sketch #left-panel #new-document-wrapper #input-fields * {
       margin-right: 10px; }
     div#sketch #left-panel #new-document-wrapper #input-fields input[type=text] {
@@ -120,26 +147,21 @@ div#sketch #left-panel {
 div#sketch #right-panel {
   height: 100%;
   float: left;
-  width: 0;
-  overflow: hidden; }
+  overflow: hidden;
+  opacity: 0;
+  width: 0%; }
   div#sketch #right-panel #panel-upper {
     width: 100%;
     height: 65px;
     background-color: #282828;
     display: flex;
     align-items: center; }
-    div#sketch #right-panel #panel-upper .color-selector {
-      width: 45px;
-      height: 45px;
-      background-color: white;
-      float: left;
-      display: inline-block;
-      margin-left: 10px; }
   div#sketch #right-panel #panel-lower {
     width: 100%;
     height: calc(100% - 65px);
     display: flex;
     justify-content: center;
+    background-color: #282828;
     align-items: center; }
     div#sketch #right-panel #panel-lower #pixel-wrapper {
       display: block; }
