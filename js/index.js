@@ -3,7 +3,7 @@ const selectionMargin = 100
 
 let clickMonitor = 0
 let pixelSize = 10
-let spriteWidth = 3, spriteHeight = 5
+let spriteWidth = 1, spriteHeight = 1
 let pageID = 0
 let colors = ["#f00", "#00f", "#00A04A", "#ff0", "#000", "#333", "#777", "#fff"]
 
@@ -57,6 +57,8 @@ $(document).ready(function() {
 })
 
 function runPixelSetup() {
+  spriteWidth = $("#width").val()
+  spriteHeight = $("#height").val()
   var c0 = $($(".color-selector").get(0)).data("col"),
       c1 = $($(".color-selector").get(1)).data("col")
 

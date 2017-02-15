@@ -25,3 +25,5 @@ Note that at the moment, I've only thrown together a mac build routine. I'm goin
 
 ## Notes
 Considering the rather small scale of this project, I think that using jQuery might be rather overkill. I'm going to treat this version as a bit of a mockup, and then when I'm finished I'll throw together a cleaner version with pure js and improved css.
+
+As an aside, I'd like to apologize for the structure of this monster. I haven't really worked with node or anything like this before, and I don't know if I should be separating things into their own files or just leaving it in this homogenous state. I'll try to get around to cleaning it up in the rewrite.
